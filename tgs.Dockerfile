@@ -1,4 +1,4 @@
-FROM alpine AS builder
+FROM alpine:3.15 AS builder
 
 COPY . /go/src/matterbridge
 RUN apk add \
@@ -7,7 +7,7 @@ RUN apk add \
   && cd /go/src/matterbridge \
   && go build -mod vendor -ldflags "-X github.com/42wim/matterbridge/version.GitHash=$(git log --pretty=format:'%h' -n 1)" -o /bin/matterbridge
 
-FROM alpine
+FROM alpine:3.15
 RUN apk --no-cache add \
     ca-certificates \
     cairo \
